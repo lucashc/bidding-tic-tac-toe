@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  h1.sessioninput Session ID:
+    input(placeholder="100", type="number").session
+    input(type="submit", value="Submit").button
+  .waiting
+    h1 Waiting for other player to connect...
+    .spinner
+      .double-bounce1
+      .double-bounce2
+  .game
+    .money1.invisible
+      h1 
+        span Your money: 
+        span €
+        span.moneyuser1 100
+    .money2.invisible
+      h1
+        span Their money: 
+        span €
+        span.moneyuser2 100
+    .board
+      each val in [0, 1, 2]
+        each obj in [0, 1, 2]
+          .tile(class="tile"+val+obj)
+            h1
+    .bidding-box
+      h1 Make bid: 
+        input(placeholder="100", type="number").bidding
+        input(type="submit", value="Submit").submit.bid
+    .move-mode
+      h1 You may do a move by clicking on the squares
+    .move-mode-other
+        h1 Wait for the other player to move...
+        .spinner
+          .double-bounce1
+          .double-bounce2
+    .waiting-bid
+      h1 Waiting for bid of other player...
+      .spinner
+        .double-bounce1
+        .double-bounce2
+  .overlay
+    .notify
+      h1 Een test tekst
