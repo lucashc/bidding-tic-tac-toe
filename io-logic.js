@@ -109,7 +109,7 @@ setInterval(() => {
   let now = Date.now();
   for (let game in games){
     if (games.hasOwnProperty(game)){
-      if ((now - games[game]['board'].instantiated) > (1000*60)){
+      if ((now - games[game]['board'].instantiated) > (1000*60*10)){
         let users = games[game]['users']
         for (let user of users){
           game_ids[user][0].disconnect()
