@@ -1,9 +1,14 @@
 extends layout
 
 block content
-  h1.sessioninput Session ID:
+  h1.sessioninput
+    | Create New Session:
+    input(type="submit", value="Create New Session").button.createid
+    br
+    br
+    | Join Existing Session:
     input(placeholder="100", type="number").session
-    input(type="submit", value="Submit").button
+    input(type="submit", value="Submit").button.joinid
   .waiting
     h1 Waiting for other player to connect...
     .spinner

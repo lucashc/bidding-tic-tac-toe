@@ -1,6 +1,6 @@
 var socketIO = require('socket.io');
 var io = socketIO();
-var game = require('./playlogic');
+var TicTacToe= require('./playlogic');
 //IO code
 var games = {};
 var game_ids = {};
@@ -28,7 +28,7 @@ io.on('connection', (client) => {
         }
       }
     }else{
-      games[ID] = {users: [client.id], board: new game()};
+      games[ID] = {users: [client.id], board: new TicTacToe()};
       games[ID]['board'].ID1 = client.id
       game_ids[client.id] = [client, ID]
     }
@@ -103,5 +103,22 @@ io.on('connection', (client) => {
     }
   });
 });
+
+// Remove old objects
+setInterval(() => {
+  let now = Date.now();
+  for (let game in games){
+    if (games.hasOwnProperty(game)){
+      if ((now - games[game]['board'].instantiated) > (1000*60)){
+        let users = games[game]['users']
+        for (let user of users){
+          game_ids[user][0].disconnect()
+          delete game_ids[user]
+        }
+        delete games[game]
+      }
+    }
+  }
+}, 1000)
 
 module.exports = io;

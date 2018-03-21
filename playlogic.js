@@ -6,6 +6,7 @@ class TicTacToe {
     this.board = [['','',''], ['','',''], ['','','']];
     this.ID1 = 0;
     this.ID2 = 0;
+    this.instantiated = Date.now();
   }
   init_balance(){
     this.balance[this.ID1] = 100

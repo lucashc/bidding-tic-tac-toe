@@ -61,6 +61,7 @@ $(document).ready(() => {
       $('.move-mode-other').hide();
       $('.waiting-bid').hide();
       $('.sessioninput').show();
+      location.reload();
     }
     $('.overlay').hide();
   });
@@ -71,12 +72,19 @@ $(document).ready(() => {
     $('.sessioninput').show();
   });
 
-  $('.button').click(() => {
+  $('.joinid').click(() => {
     var ID = $('.session').val();
     socket.emit('register session', ID);
     $('.sessioninput').hide();
     $('.waiting').show();
   });
+  $('.createid').click(() => {
+    var ID = Math.floor((Math.random() * 1000) + 1);
+    socket.emit('register session', ID);
+    $('.sessioninput').hide();
+    $('.waiting').show();
+    alert_user("Your game ID is: " + ID);
+  })
   socket.on('other player connected', () => {
     $('.waiting').hide();
     $('.game').show();
@@ -111,4 +119,7 @@ $(document).ready(() => {
   $('.tile').click(register_move);
   socket.on('update board', update_board);
   socket.on('victory', victory);
+  socket.on('disconnect', () => {
+     location.reload();
+  })
 });
